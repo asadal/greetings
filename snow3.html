@@ -37,8 +37,14 @@ body::before {
 
 h2 {
     font-size: 4em;
-    color: #3f3f46;
+    color: #000000; /* 주황색 글자 */
     margin: 0;
+    -webkit-text-stroke: 2px #3EDBC5; /* 웹킷 브라우저용 텍스트 테두리 */
+    text-shadow:
+        -1px -1px 0 #3EDBC5,  
+        1px -1px 0 #3EDBC5,
+        -1px 1px 0 #3EDBC5,
+        1px 1px 0 #3EDBC5; /* 텍스트 테두리 */
 }
 
 .center-message {
@@ -111,59 +117,83 @@ canvas.height = H;
 
 var mf = 100; // 최대 눈송이 수
 var flakes = [];
+var angle = 0; // 눈송이 움직임을 위한 각도 변수 추가
 
-// 눈송이에 속성을 지정합니다
-for(var i = 0; i < mf; i++)
-{
+// 눈송이 초기화
+for (var i = 0; i < mf; i++) {
     flakes.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        r: Math.random()*5+2, // 최소 2px, 최대 7px
-        d: Math.random() + 1 // 눈송이의 밀도
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 5 + 2, // 눈송이 반경
+        d: Math.random() + 1, // 밀도
+        vx: Math.random() - 0.5, // X축 벡터
+        vy: Math.random() - 0.5  // Y축 벡터
     })
 }
 
-// 캔버스에 눈송이를 그립니다
-function drawFlakes()
-{
+// 눈송이 그리기 함수
+function drawFlakes() {
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = "white";
     ctx.beginPath();
-    for(var i = 0; i < mf; i++)
-    {
+    for (var i = 0; i < mf; i++) {
         var f = flakes[i];
         ctx.moveTo(f.x, f.y);
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
     }
     ctx.fill();
     moveFlakes();
 }
 
-// 눈송이를 움직입니다
-var angle = 0;
-function moveFlakes()
-{
+// 마우스 위치
+var mouseX = W / 2;
+var mouseY = H / 2;
+
+// 마우스 위치 감지 이벤트
+document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// 터치 위치 감지 이벤트 (모바일 대응)
+document.addEventListener('touchmove', function (e) {
+    if (e.touches.length == 1) {
+        var touch = e.touches[0];
+        mouseX = touch.pageX;
+        mouseY = touch.pageY;
+    }
+}, false);
+
+// 눈송이 움직임 함수
+function moveFlakes() {
     angle += 0.01;
-    for(var i = 0; i < mf; i++)
-    {
+    for (var i = 0; i < mf; i++) {
         var f = flakes[i];
-
-        // 눈송이의 X, Y 좌표를 업데이트합니다
+        // 기본 움직임 + 마우스 커서 방향 반대로 이동
+        f.x += Math.sin(angle) * f.d;
         f.y += Math.pow(f.d, 2) + 1;
-        f.x += Math.sin(angle) * 2;
+        
+        // 마우스 커서 근처에 있을 때 반대 방향으로 이동
+        var dx = f.x - mouseX;
+        var dy = f.y - mouseY;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 50) {
+            f.x += dx / distance;
+            f.y += dy / distance;
+        }
 
-        // 눈송이가 바닥에 닿으면 새로운 눈송이를 위에서 시작합니다
-        if(f.y > H){
-            flakes[i] = {x: Math.random()*W, y: 0, r: f.r, d: f.d};
+        // 화면 끝 도달 시 재위치
+        if (f.x > W || f.x < 0 || f.y > H) {
+            flakes[i] = {x: Math.random() * W, y: 0, r: f.r, d: f.d};
         }
     }
 }
 
-// 이 함수는 25밀리초마다 drawFlakes() 함수를 실행합니다
+// 눈송이 업데이트 간격
 setInterval(drawFlakes, 25);
 
-// 창 크기가 조정될 때 캔버스 크기를 조정합니다
-window.onresize = function(){
+// 창 크기 조정 감지
+window.onresize = function () {
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = W;
