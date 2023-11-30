@@ -48,20 +48,21 @@ h2 {
     z-index: 5;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
     .center-content {
-        width: 100%; /* Set the width of .center-content to full */
-        padding: 10px; /* Adjust the padding */
-        top: 50%; /* Keep it centered vertically */
-        left: 0; /* Align to the left */
-        transform: translateY(-50%); /* Adjust vertical positioning */
-        box-sizing: border-box; /* Include padding in the width */
+        width: 100%; /* 메시지 박스 너비를 화면 가로 너비에 맞춤 */
+        padding: 5% 10px; /* 상하 패딩을 비율로, 좌우 패딩을 고정 값으로 조정 */
+        top: 50%; /* 수직 중앙 정렬 */
+        left: 0; /* 왼쪽에 맞춤 */
+        right: 0; /* 오른쪽에 맞춤 */
+        transform: translateY(-50%); /* 수직 중앙 정렬을 위한 변환 */
+        box-sizing: border-box; /* 패딩을 너비 계산에 포함 */
     }
     h2 {
-        font-size: 6vw; /* Increase font size */
+        font-size: 8vw; /* 글자 크기를 화면 너비에 따라 조정 */
     }
     .center-message p {
-        font-size: 5vw; /* Increase font size */
+        font-size: 4.5vw; /* 글자 크기를 화면 너비에 따라 조정 */
     }
 }
 </style>
