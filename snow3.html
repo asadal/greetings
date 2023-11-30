@@ -15,6 +15,13 @@ body::before {
     z-index: 0;
 }
 
+.center-title {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .center-content {
     position: absolute;
     top: 50%;
@@ -29,7 +36,7 @@ body::before {
 
 h2 {
     font-size: 4em;
-    color: #fd9206;
+    color: #3f3f46;
     margin: 0;
 }
 
@@ -50,6 +57,14 @@ h2 {
 }
 
 @media screen and (max-width: 1000px) {
+    .center-title {
+        top: 20%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        transform: none;
+        text-align: center;
+    }
     .center-content {
         width: 100%; /* 메시지 박스 너비를 화면 가로 너비에 맞춤 */
         padding: 5% 10px; /* 상하 패딩을 비율로, 좌우 패딩을 고정 값으로 조정 */
@@ -72,8 +87,9 @@ h2 {
 
 <canvas id='canv'></canvas>
 
+<div class="center-title"><h2>새해 복 많이 받으세요</h2></div>
 <div class="center-content">
-    <h2>새해 복 많이 받으세요</h2>
+
     <div class="center-message">
         <p>한 해 동안 한겨레신문을 사랑해주셔서 감사합니다.</p>
         <p>한겨레신문은 내년에도 정직하고 올곧은 목소리로</p>
