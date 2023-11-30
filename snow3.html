@@ -11,10 +11,9 @@ body::before {
     width: 100%; height: 100%;
     background: url('https://support.hani.co.kr/introduce/images/photo/main02.jpg') no-repeat center center fixed; 
     background-size: cover;
-    opacity: 0.5; /* 투명도 50% 설정 */
-    z-index: 0; /* 배경이므로 가장 아래에 위치하도록 설정 */
+    opacity: 0.5;
+    z-index: 0;
 }
-
 
 .center-content {
     position: absolute;
@@ -25,12 +24,13 @@ body::before {
     z-index: 10;
     text-align: center;
     padding: 20px;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 h2 {
     font-size: 3em;
     color: #fd9206;
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
 .center-message {
@@ -44,16 +44,22 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Allow clicks to pass through */
-    z-index: 5; /* Below the content but above the background */
+    pointer-events: none;
+    z-index: 5;
 }
 
 @media screen and (max-width: 600px) {
+    .center-content {
+        width: 100%; /* Make .center-content full width */
+        padding: 10px; /* Adjust padding for smaller devices */
+        left: 0;
+        transform: translateY(-50%); /* Adjust translation for full width */
+    }
     h2 {
-        font-size: 2em;
+        font-size: 5vw; /* Use viewport width units to adjust font size */
     }
     .center-message p {
-        font-size: 1em;
+        font-size: 4vw; /* Use viewport width units to adjust font size */
     }
 }
 </style>
