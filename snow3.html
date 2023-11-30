@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="kr">
+<head>
+<meta charset="UTF-8">
+<title>Winter Snow</title>
+<style>
+body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('https://support.hani.co.kr/introduce/images/photo/main02.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    opacity: 0.5; /* 투명도 50% 설정 */
+    z-index: 0; /* 배경이므로 가장 아래에 위치하도록 설정 */
+}
+
+
+.center-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 3em;
+    color: #fd9206;
+    margin: 0; /* Remove default margin */
+}
+
+.center-message {
+    color: #ffffff;
+    line-height: 2em;
+}
+
+#canv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 5; /* Below the content but above the background */
+}
+
+@media screen and (max-width: 600px) {
+    h2 {
+        font-size: 2em;
+    }
+    .center-message p {
+        font-size: 1em;
+    }
+}
+</style>
+</head>
+<body>
+
+<canvas id='canv'></canvas>
+
+<div class="center-content">
+    <h2>새해 복 많이 받으세요</h2>
+    <div class="center-message">
+        <p>한 해 동안 한겨레신문을 사랑해주셔서 감사합니다.</p>
+        <p>한겨레신문은 내년에도 정직하고 올곧은 목소리로</p>
+        <p>독자 여러분을 찾아가겠습니다.</p>
+        <p>새해에도 가정에 행복과 평온이 가득하길 기원합니다.</p>
+        <p>- 한겨레신문 드림</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+var canvas = document.getElementById('canv');
+var ctx = canvas.getContext('2d');
+
+var W = window.innerWidth;
+var H = window.innerHeight;
+canvas.width = W;
+canvas.height = H;
+
+var mf = 100; // 최대 눈송이 수
+var flakes = [];
+
+// 눈송이에 속성을 지정합니다
+for(var i = 0; i < mf; i++)
+{
+    flakes.push({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: Math.random()*5+2, // 최소 2px, 최대 7px
+        d: Math.random() + 1 // 눈송이의 밀도
+    })
+}
+
+// 캔버스에 눈송이를 그립니다
+function drawFlakes()
+{
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    for(var i = 0; i < mf; i++)
+    {
+        var f = flakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI*2, true);
+    }
+    ctx.fill();
+    moveFlakes();
+}
+
+// 눈송이를 움직입니다
+var angle = 0;
+function moveFlakes()
+{
+    angle += 0.01;
+    for(var i = 0; i < mf; i++)
+    {
+        var f = flakes[i];
+
+        // 눈송이의 X, Y 좌표를 업데이트합니다
+        f.y += Math.pow(f.d, 2) + 1;
+        f.x += Math.sin(angle) * 2;
+
+        // 눈송이가 바닥에 닿으면 새로운 눈송이를 위에서 시작합니다
+        if(f.y > H){
+            flakes[i] = {x: Math.random()*W, y: 0, r: f.r, d: f.d};
+        }
+    }
+}
+
+// 이 함수는 25밀리초마다 drawFlakes() 함수를 실행합니다
+setInterval(drawFlakes, 25);
+
+// 창 크기가 조정될 때 캔버스 크기를 조정합니다
+window.onresize = function(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+};
+</script>
+</body>
+</html>
