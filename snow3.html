@@ -50,16 +50,18 @@ h2 {
 
 @media screen and (max-width: 600px) {
     .center-content {
-        width: 100%; /* Make .center-content full width */
-        padding: 10px; /* Adjust padding for smaller devices */
-        left: 0;
-        transform: translateY(-50%); /* Adjust translation for full width */
+        width: 100%; /* Set the width of .center-content to full */
+        padding: 10px; /* Adjust the padding */
+        top: 50%; /* Keep it centered vertically */
+        left: 0; /* Align to the left */
+        transform: translateY(-50%); /* Adjust vertical positioning */
+        box-sizing: border-box; /* Include padding in the width */
     }
     h2 {
-        font-size: 5vw; /* Use viewport width units to adjust font size */
+        font-size: 6vw; /* Increase font size */
     }
     .center-message p {
-        font-size: 4vw; /* Use viewport width units to adjust font size */
+        font-size: 5vw; /* Increase font size */
     }
 }
 </style>
