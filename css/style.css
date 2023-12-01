@@ -15,7 +15,7 @@ body {
     margin: 0 auto;
     position: relative;
     min-height: 100vh;
-    background: url('main/images/paper_bg_02.png');
+    background: url('images/paper_bg_02.png');
     background-size: cover;
     z-index: 1;
 }
