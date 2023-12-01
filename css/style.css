@@ -15,13 +15,13 @@ body {
     margin: 0 auto;
     position: relative;
     min-height: 100vh;
-    background: url('/images/paper_bg_02.png');
+    background: url('images/paper_bg_02.png');
     background-size: cover;
     z-index: 1;
 }
 
 .header-image {
-    background: url('/images/hani_building.png') no-repeat center center;
+    background: url('images/hani_building.png') no-repeat center center;
     background-size: cover;
     height: 50vh;
     position: relative;
