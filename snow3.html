@@ -3,122 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <title>Winter Snow</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: url('hani_sketch.jpg') no-repeat center center fixed; 
-    background-size: cover;
-    opacity: 0.4;
-    z-index: -2; /* z-index 변경 */
+html {
+    height: 100%; /* 전체 페이지 높이 설정 */
+    background-color: #f0f0f0; /* 회색 배경색 설정 */
 }
 
-body::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* 검정색 오버레이 추가 */
-    z-index: 0; /* 적절한 z-index 설정 */
-    opacity: 0.8; /* 투명도 조절 */
-    z-index: -1;
-}
-
-.center-title {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-}
-
-.center-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box; /* Ensure padding is included in width calculation */
-    border-radius: 15px;
-}
-
-h2 {
-    font-size: 4em;
-    color: #ffff00; /* 글자 색상을 노란색으로 설정 */
+body {
     margin: 0;
-    -webkit-text-stroke: 0.5px #000000; /* 웹킷 브라우저용 텍스트 테두리 */
-    text-shadow: 
-        -0.5px -0.5px 0 #000000, 
-         0.5px -0.5px 0 #000000,
-         -0.5px 0.5px 0 #000000, 
-         0.5px 0.5px 0 #000000; /* 검정색 얇은 테두리 */
+    padding: 0;
+    height: 100%; /* 전체 페이지 높이 설정 */
+    background-color: #f0f0f0; /* 회색 배경색 설정 */
 }
 
-
-.center-message {
-    font-size: 1.5em;
-    color: #ffffff;
-    line-height: 1.5em;
+.container {
+    width: 800px; /* 컨테이너 너비 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+    position: relative; /* 상대 위치 설정 */
+    min-height: 100vh; /* 최소 높이 설정 */
+    background: url('letter_03.jpg'); /* 종이 질감 배경 설정 */
+    background-size: cover; /* 배경 이미지 커버로 설정 */
+    z-index: 1; /* 컨테이너를 배경 위에 놓기 위해 z-index 설정 */
 }
 
-#canv {
-    position: fixed;
+.header-image {
+    background: url('hani_sketch.jpg') no-repeat center center;
+    background-size: cover; /* 이미지 커버로 설정 */
+    height: 50vh; /* 높이를 화면의 50%로 설정 */
+    position: relative;
+    z-index: 1; /* 이미지를 배경 위에 놓기 위해 z-index 설정 */
+}
+
+.image-overlay {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 검정색 오버레이 적용 */
+    z-index: 2; /* 오버레이를 이미지 위에 놓기 위해 z-index 설정 */
+}
+
+#canv {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* 캔버스 중앙 정렬 */
+    width: 800px; /* 캔버스 너비 설정 */
+    height: 50vh; /* 캔버스 높이 설정 */
     pointer-events: none;
-    z-index: 5;
+    z-index: 3; /* 눈 효과가 오버레이 위에 표시되도록 z-index 수정 */
+}
+
+.center-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 가운데 정렬 */
+    z-index: 4; /* 제목을 눈 효과 위에 놓기 위해 z-index 설정 */
+    color: yellow; /* 제목 색상을 노란색으로 변경 */
+    font-size: 3em; /* 글자 크기 증가 */
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; /* 검정색 테두리 적용 */
+    font-family: 'Noto Serif KR', serif; /* Noto Serif Korean 폰트 적용 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.center-content {
+    position: relative; /* 상대 위치 설정 */
+    z-index: 5; /* 콘텐츠를 눈 효과 위에 놓기 위해 z-index 설정 */
+    text-align: center;
+    padding: 20px;
+}
+
+.center-message {
+    font-size: 2em; /* 메시지 글자 크기 증가 */
+    color: black;
+    line-height: 1.4em;
+    font-family: 'Nanum Pen Script', cursive; /* Nanum Brush Script 폰트 적용 */
 }
 
 @media screen and (max-width: 1000px) {
+    .container {
+        width: 100%; /* 화면이 좁을 때 너비 조정 */
+    }
+
+    #canv {
+        width: 100%; /* 캔버스 너비 조정 */
+    }
+
     .center-title {
-        top: 20%;
-        left: 0;
-        right: 0;
-        width: 100%;
-        transform: none;
-        text-align: center;
+        font-size: 5em; /* 모바일 화면에서 글자 크기 증가 */
     }
-    .center-content {
-        width: 100%; /* 메시지 박스 너비를 화면 가로 너비에 맞춤 */
-        padding: 5% 10px; /* 상하 패딩을 비율로, 좌우 패딩을 고정 값으로 조정 */
-        top: 50%; /* 수직 중앙 정렬 */
-        left: 0; /* 왼쪽에 맞춤 */
-        right: 0; /* 오른쪽에 맞춤 */
-        transform: translateY(-50%); /* 수직 중앙 정렬을 위한 변환 */
-        box-sizing: border-box; /* 패딩을 너비 계산에 포함 */
-    }
-    h2 {
-        font-size: 8vw; /* 글자 크기를 화면 너비에 따라 조정 */
-    }
-    .center-message p {
-        font-size: 4.5vw; /* 글자 크기를 화면 너비에 따라 조정 */
+
+    .center-message {
+        font-size: 4em; /* 모바일 화면에서 메시지 글자 크기 증가 */
     }
 }
 </style>
 </head>
 <body>
 
-<canvas id='canv'></canvas>
-
-<div class="center-title"><h2>새해 복 많이 받으세요</h2></div>
-<div class="center-content">
-
-    <div class="center-message">
-        <p>한 해 동안 한겨레신문을 사랑해주셔서 감사합니다.</p>
-        <p>한겨레신문은 내년에도 정직하고 올곧은 목소리로</p>
-        <p>독자 여러분을 찾아가겠습니다.</p>
-        <p>새해에도 가정에 행복과 평온이 가득하길 기원합니다.</p>
-        <p>- 한겨레신문 드림</p>
+<div class="container">
+    <div class="header-image">
+        <div class="image-overlay"></div>
+        <canvas id="canv"></canvas>
+        <div class="center-title">새해 복 많이 받으세요</div>
+    </div>
+    <div class="center-content">
+        <div class="center-message">
+            <p>한 해 동안 한겨레를 사랑해주셔서</p>
+            <p>감사합니다.</p>
+            <p>한겨레는 내년에도 정직하고 올곧은 목소리로</p>
+            <p>여러분을 찾아가겠습니다.</p>
+            <p>새해에도 가정에 행복과 평온이</p>
+            <p>가득하길 기원합니다.</p>
+            <p>- 한겨레 사람들 드림</p>
+        </div>
     </div>
 </div>
-
+    
 <script type="text/javascript">
 var canvas = document.getElementById('canv');
 var ctx = canvas.getContext('2d');
